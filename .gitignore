@@ -22,3 +22,11 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+
+### Maven ###
+*mvn*
+
+logs/
+
+
