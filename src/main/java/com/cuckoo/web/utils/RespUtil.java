@@ -1,6 +1,7 @@
 package com.cuckoo.web.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cuckoo.web.mysql.ddl.User;
 
 /**
  * Created by tanmq on 2017/2/26.
@@ -44,6 +45,20 @@ public class RespUtil {
         resp.put("msg", msg);
 
         return resp;
+    }
+
+
+    public static JSONObject buildUserResponse(User user, String sessionId) {
+        JSONObject data = new JSONObject();
+        data.put("name", user.getName());
+        data.put("uid", user.getId());
+        data.put("phone", user.getPhone());
+        data.put("email", user.getEmail());
+        data.put("gender", user.getGender());
+        data.put("avatar_url", user.getAvatarUrl());
+        data.put("session_id", sessionId);
+
+        return OKResponse(data);
     }
 
 
