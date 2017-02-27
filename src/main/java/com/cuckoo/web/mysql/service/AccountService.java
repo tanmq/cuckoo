@@ -144,7 +144,7 @@ public class AccountService {
 
         User user = userDao.getUserById(userSession.getUid());
 
-        String authCode = EncodeUtil.MD5(uid+device+date);
+        String authCode = EncodeUtil.MD5(uid+device+date+userSession.getSessionId());
         if (authCode.equals(code)) {
             return user;
         }
