@@ -17,9 +17,11 @@ public interface UserMapper {
     @Select("select * from user")
     public List<User> getALl();
 
+    @Select("select count(*) from user where `status`=1")
+    public Integer countUsers();
 
-    @Insert("insert into user (`name`,`phone`,`email`,`avatar_url`,`gender`,`passwd`,`salt`) " +
-            "values (#{u.name}, #{u.phone}, #{u.email}, #{u.avatarUrl}, #{u.gender}, #{u.passwd}, #{u.salt})")
+    @Insert("insert into user (`name`,`phone`,`email`,`avatarUrl`,`gender`,`passwd`,`salt`,`cts`,`uts`) " +
+            "values (#{u.name}, #{u.phone}, #{u.email}, #{u.avatarUrl}, #{u.gender}, #{u.passwd}, #{u.salt}, now(), now())")
     public void insertUser(@Param("u")User user);
 
 

@@ -44,4 +44,8 @@ public class UserDao {
     public User getUserById(Long id) {
         return userMapper.getUserById(id);
     }
+
+    public Integer countUsers() {
+        return userMapper.countUsers();
+    }
 }

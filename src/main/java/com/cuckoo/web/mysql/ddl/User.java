@@ -1,6 +1,8 @@
 package com.cuckoo.web.mysql.ddl;
 
 
+import java.util.Date;
+
 /**
  * Created by tanmq on 2017/2/26.
  */
@@ -25,6 +27,10 @@ public class User {
     private int status;
 
     private int device;
+
+    private Date cts;
+
+    private Date uts;
 
 
     public String getName() {
@@ -105,5 +111,21 @@ public class User {
 
     public void setDevice(int device) {
         this.device = device;
+    }
+
+    public Date getCts() {
+        return cts;
+    }
+
+    public void setCts(Date cts) {
+        this.cts = cts;
+    }
+
+    public Date getUts() {
+        return uts;
+    }
+
+    public void setUts(Date uts) {
+        this.uts = uts;
     }
 }

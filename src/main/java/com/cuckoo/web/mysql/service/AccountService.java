@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
-import javax.websocket.Session;
 
 /**
  * Created by tanmq on 2017/2/27.
@@ -121,8 +120,10 @@ public class AccountService {
 
     public String buildSession(User user, Integer device) {
         UserSession userSession = userSessionDao.getSessionByUid(user.getId(), device);
+
+        //踢掉旧设备登录信息
         if (userSession != null) {
-            return userSession.getSessionId();
+            userSessionDao.expireSession(user.getId(), device);
         }
 
         String sessionId = EncodeUtil.newSessionId();
