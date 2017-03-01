@@ -25,7 +25,6 @@
 								<p>你的足迹，你的回忆！</p>
 
 							</div>
-                            <img id="qrcode" src="/images/qrcode.png" />
 						</div>
 
 					<!-- Thumb Items -->
@@ -44,13 +43,14 @@
 
 			<div id="footer">
 				<div class="left">
-					<p>This is <strong>Parallelism</strong>, a responsive portfolio site template by <a href="http://html5up.net">HTML5 UP</a>. Free for personal<br />
-					and commercial use under the <a href="http://html5up.net/license">Creative Commons Attribution</a> license.</p>
+					<p>这是<strong>Cuckoo布谷鸟</strong>,  一个专门收藏回忆的地方. 播种过去，收获未来<br />
+					如果你也想拥有这么一方天地，下载我们app吧！ <a href="http://html5up.net/license">点击下载</a> 客户端.
+                    </p>
 				</div>
 				<div class="right">
 					<ul class="contact">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100005526975158" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
 					<ul class="copyright">
 						<li>&copy; Cuckoo</li><li>团队: <a href="http://html5up.net">cuckoo</a></li>
