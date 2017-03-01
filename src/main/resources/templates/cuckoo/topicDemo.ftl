@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/cuckoo/topicDemo.css" >
 <head/>
 
@@ -9,7 +10,7 @@
 
     <h2 id="topic-title">云南之旅</h2>
 
-    <div id="author" ><em id="date">2007-2-23</em><a id="author-name">音乐潮流</a></div>
+    <div id="author" ><em id="date">2017-3-1</em><a id="author-name">戈风</a></div>
 
     <div id="leader-note">
         <p>云南之旅开始于2014年毕业季。为了这次的旅程，克服了很多困难，期间也遇到很多难题，但终究圆满。现在回想起来，尽是感动回忆。也许人生就是应该由这样色彩的片段编织起来。</p>
