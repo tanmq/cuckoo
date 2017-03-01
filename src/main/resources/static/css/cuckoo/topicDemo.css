@@ -1,0 +1,84 @@
+* {
+    margin : 0;
+    padding : 0;
+}
+
+
+#content {
+    position : relative;
+    max-width : 720px;
+    margin: auto;
+    padding : 40px 35px 35px;
+}
+
+
+#topic-title {
+    padding-bottom : 10px;
+    margin-bottom : 10px;
+    border-bottom : 1px solid #e7e7eb;
+    line-height : 1.4;
+    font-size : 24px;
+    font-weight : 400;
+}
+
+#author {
+    position : relative;
+    z-index : 1;
+    margin-bottom : 18px;
+    line-height : 20px;
+ }
+
+ #date {
+    display : inline-block;
+    vertical-align : middle;
+    margin-right : 8px;
+    margin-bottom : 10px;
+    font-size : 16px;
+    font-style : normal;
+    color : #8c8c8c;
+}
+
+
+#author-name {
+    display : inline-block!important;
+    vertical-align : middle;
+    margin-right : 8px;
+    margin-bottom : 10px;
+    font-size : 16px;
+    color : #607fa6;
+    text-decoration : none;
+}
+
+.section {
+    margin-left : 1em;
+    margin-right : 1em;
+    margin: auto;
+    box-shadow : 3px 3px 8px #888888;
+    background-color : #fff;
+    padding-bottom : 20px;
+    margin-bottom : 20px;
+
+}
+
+.image {
+    width : 100%;
+    margin: auto;
+}
+
+.note {
+    text-align : center;
+    font-size : 18px;
+    color : #b0b0b0;
+    padding-top : 10px;
+}
+
+img {
+    width : 100%;
+}
+
+
+#leader-note {
+    font-size : 14px;
+    padding-bottom : 10px;
+
+}
