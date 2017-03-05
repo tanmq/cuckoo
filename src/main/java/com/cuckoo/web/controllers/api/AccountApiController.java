@@ -2,6 +2,7 @@ package com.cuckoo.web.controllers.api;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.cuckoo.web.controllers.enumutation.AccountField;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.service.AccountService;
 import com.cuckoo.web.utils.ReqUtil;
@@ -24,6 +25,41 @@ public class AccountApiController {
 
     @Autowired
     AccountService accountService;
+
+
+    @RequestMapping(value = "validate", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject validate(@RequestBody JSONObject req) throws Exception{
+        ReqUtil.NotNullParams(req, "field", "value");
+
+        int field       = req.getInteger("field");
+        String value    = req.getString("value");
+
+        AccountField accountField = AccountField.valOf(field);
+        if (accountField == null) {
+            return RespUtil.ERRORResponse(407, "Error field, field is undefined");
+        }
+
+        switch (accountField) {
+            case NAME:
+                if (accountService.userExistByName(value)) {
+                    return RespUtil.ERRORResponse(407, "该昵称已经被使用，请更换另一个");
+                }
+                break;
+            case EMAIL:
+                if (accountService.userExistByEmail(value)) {
+                    return RespUtil.ERRORResponse(407, "该邮箱已经注册！");
+                }
+                break;
+            case PHONE:
+                if (accountService.userExistByPhone(value)) {
+                    return RespUtil.ERRORResponse(407, "该手机号已经注册！");
+                }
+                break;
+        }
+
+        return RespUtil.OKResponse();
+    }
 
     //用户登录
     @RequestMapping(value = "/signIn", method = {RequestMethod.POST, RequestMethod.GET})

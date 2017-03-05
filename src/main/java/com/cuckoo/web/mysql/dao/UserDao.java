@@ -45,6 +45,11 @@ public class UserDao {
         return userMapper.getUserById(id);
     }
 
+
+    public User getUserByName(String name) {
+        return userMapper.getUserByName(name);
+    }
+
     public Integer countUsers() {
         return userMapper.countUsers();
     }

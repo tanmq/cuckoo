@@ -118,6 +118,19 @@ public class AccountService {
     }
 
 
+    public boolean userExistByName(String name) {
+        return userDao.getUserByName(name) != null;
+    }
+
+    public boolean userExistByPhone(String phone) {
+        return userDao.getUserByPhone(phone) != null;
+    }
+
+    public boolean userExistByEmail(String email) {
+        return userDao.getUserByEmail(email) != null;
+    }
+
+
     public String buildSession(User user, Integer device) {
         UserSession userSession = userSessionDao.getSessionByUid(user.getId(), device);
 
