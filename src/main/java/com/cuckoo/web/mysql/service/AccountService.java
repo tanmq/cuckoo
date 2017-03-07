@@ -56,16 +56,15 @@ public class AccountService {
         return null;
     }
 
-    public boolean addNewUser(@NotNull String name, @NotNull String phone, @NotNull String email,
+    public boolean addNewUser(@NotNull String name, @NotNull String phone,
                               @NotNull String avatarUrl, @NotNull Integer gender, @NotNull String pass) {
-        if (userExist(phone) || userExist(email)) {
+        if (userExist(phone)) {
             return false;
         }
 
         User user = new User();
         user.setName(name);
         user.setPhone(phone);
-        user.setEmail(email);
         user.setAvatarUrl(avatarUrl);
         user.setGender(gender);
 
@@ -107,14 +106,7 @@ public class AccountService {
      * @return
      */
     private User getUser(String account) {
-        User user;
-        if (account.contains("@")) { //sign in with email
-            user = userDao.getUserByEmail(account);
-        } else {                     //sign in with phone
-            user = userDao.getUserByPhone(account);
-        }
-
-        return user;
+        return userDao.getUserByPhone(account);
     }
 
 
@@ -123,11 +115,7 @@ public class AccountService {
     }
 
     public boolean userExistByPhone(String phone) {
-        return userDao.getUserByPhone(phone) != null;
-    }
-
-    public boolean userExistByEmail(String email) {
-        return userDao.getUserByEmail(email) != null;
+        return userExist(phone);
     }
 
 

@@ -29,13 +29,6 @@ public class UserDao {
         return userMapper.getUserByPhone(phone);
     }
 
-    public User getUserByEmail(String email) {
-        if (StringUtil.NullOrEmpty(email)) {
-            return null;
-        }
-
-        return userMapper.getUserByEmail(email);
-    }
 
     public void insertUser(User user) {
         userMapper.insertUser(user);

@@ -4,7 +4,7 @@ package com.cuckoo.web.controllers.enumutation;
  * Created by tanmq on 2017/3/5.
  */
 public enum AccountField {
-    NAME(1),PHONE(2),EMAIL(3);
+    NAME(1),PHONE(2);
 
         private int value;
 
@@ -18,8 +18,6 @@ public enum AccountField {
                     return NAME;
                 case 2:
                     return PHONE;
-                case 3:
-                    return EMAIL;
                 default:
                     return null;
             }

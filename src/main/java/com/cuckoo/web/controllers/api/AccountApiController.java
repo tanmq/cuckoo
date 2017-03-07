@@ -46,11 +46,6 @@ public class AccountApiController {
                     return RespUtil.ERRORResponse(407, "该昵称已经被使用，请更换另一个");
                 }
                 break;
-            case EMAIL:
-                if (accountService.userExistByEmail(value)) {
-                    return RespUtil.ERRORResponse(407, "该邮箱已经注册！");
-                }
-                break;
             case PHONE:
                 if (accountService.userExistByPhone(value)) {
                     return RespUtil.ERRORResponse(407, "该手机号已经注册！");
@@ -96,12 +91,11 @@ public class AccountApiController {
 
         String name         = req.getString("name");
         String phone        = req.getString("phone");
-        String email        = req.getString("email");
         String avatarUrl    = req.getString("avatar_url");
         String passwd       = req.getString("password");
         Integer gender      = req.getInteger("gender");
 
-        boolean added = accountService.addNewUser(name, phone, email, avatarUrl, gender, passwd);
+        boolean added = accountService.addNewUser(name, phone, avatarUrl, gender, passwd);
         if (added) {
             return RespUtil.OKResponse();
         }
@@ -111,9 +105,9 @@ public class AccountApiController {
     }
 
     //用户退出
-    @RequestMapping(value = "/sigOut", method = RequestMethod.POST)
+    @RequestMapping(value = "/signOut", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject signOut(@RequestBody JSONObject req) throws Exception{
+    public JSONObject signOut() throws Exception{
         User user = TUser.getUser();
 
         accountService.expireSession(user.getId(), user.getDevice());

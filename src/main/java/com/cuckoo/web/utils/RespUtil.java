@@ -53,7 +53,6 @@ public class RespUtil {
         data.put("name", user.getName());
         data.put("uid", user.getId());
         data.put("phone", user.getPhone());
-        data.put("email", user.getEmail());
         data.put("gender", user.getGender());
         data.put("avatar_url", user.getAvatarUrl());
         data.put("session_id", sessionId);
