@@ -87,7 +87,7 @@ public class AccountApiController {
     //用户注册
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public JSONObject signUp(@RequestBody JSONObject req) throws Exception{
-        ReqUtil.NotNullParams(req, "name", "phone", "email", "avatar_url", "gender", "password");
+        ReqUtil.NotNullParams(req, "name", "phone", "avatar_url", "gender", "password");
 
         String name         = req.getString("name");
         String phone        = req.getString("phone");

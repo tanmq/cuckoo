@@ -1,6 +1,9 @@
 package com.cuckoo.web.controllers;
 
+import com.cuckoo.web.mysql.dao.FeedDao;
+import com.cuckoo.web.mysql.dao.FeedTimelineDao;
 import com.cuckoo.web.mysql.dao.UserDao;
+import com.cuckoo.web.mysql.ddl.Feed;
 import com.cuckoo.web.mysql.ddl.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +25,9 @@ public class HelloController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    FeedDao feedDao;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {

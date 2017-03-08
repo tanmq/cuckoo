@@ -18,7 +18,8 @@ import java.io.IOException;
  */
 
 @WebFilter(filterName  = "authFilter",
-           urlPatterns = {"/hello/*", "/api/v1/account/signOut"})
+           urlPatterns = {"/api/v1/account/signOut",
+                          "/api/v1/feed/*"})
 public class AuthFilter implements Filter{
 
     @Autowired
