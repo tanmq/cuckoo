@@ -33,7 +33,7 @@ public class OssUtil {
 
 
     public static String uploadFile(byte[] data) {
-        String key = UUID.randomUUID().toString();
+        String key = UUID.randomUUID().toString().replaceAll("-", "");
         PutObjectResult result = ossClient.putObject(buckName, key, new ByteArrayInputStream(data));
 
         String url = "http://" + buckName + "." + endPoint + "/" + key;

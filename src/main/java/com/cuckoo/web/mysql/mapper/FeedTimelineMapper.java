@@ -16,16 +16,16 @@ public interface FeedTimelineMapper {
 
 
     @Select("select * from `feed` where id in " +
-            "(select `fid` from `feed_timeline` where `uid`=#{uid} order by `cts` desc limit #{offset}, #{size})" +
-            " order by `cts` desc and `status`=1")
+            "(select `fid` from `feed_timeline` where `uid`=#{uid})" +
+            " and `status`=1  order by `cts` desc limit #{offset}, #{size}")
     public List<Feed> getTimeLine(@Param("uid")long uid,
                                   @Param("offset")int offset,
                                   @Param("size")int size);
 
-    @Insert("insert into `feed_timeline` (`uid`,`fid`,`authorId`,`cts`) values (#{uid}), #{fid}, #{aid}, #{cts}")
+    @Insert("insert into `feed_timeline` (`uid`,`fid`,`authorId`,`cts`) values (#{uid}, #{fid}, #{aid}, #{cts})")
     public void insertTimelineItem(@Param("uid")long uid, @Param("fid")long fid, @Param("aid")long authorId, @Param("cts")Date cts);
 
-    @Delete("delete * from `feed_timeline` where `uid`=#{uid} and `authorId`=#{aid}")
+    @Delete("delete from `feed_timeline` where `uid`=#{uid} and `authorId`=#{aid}")
     public void hideUserFeeds(@Param("uid")long uid, @Param("aid")long authorId);
 
 

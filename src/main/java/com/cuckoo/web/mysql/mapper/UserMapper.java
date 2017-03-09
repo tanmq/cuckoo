@@ -20,16 +20,13 @@ public interface UserMapper {
     @Select("select count(*) from user where `status`=1")
     public Integer countUsers();
 
-    @Insert("insert into user (`name`,`phone`,`email`,`avatarUrl`,`gender`,`passwd`,`salt`,`cts`,`uts`) " +
-            "values (#{u.name}, #{u.phone}, #{u.email}, #{u.avatarUrl}, #{u.gender}, #{u.passwd}, #{u.salt}, now(), now())")
+    @Insert("insert into user (`name`,`phone`,`avatarUrl`,`gender`,`passwd`,`salt`,`cts`,`uts`) " +
+            "values (#{u.name}, #{u.phone}, #{u.avatarUrl}, #{u.gender}, #{u.passwd}, #{u.salt}, now(), now())")
     public void insertUser(@Param("u")User user);
 
 
     @Select("select * from user where `phone` =  #{phone} and `status` = 1")
     public User getUserByPhone(@Param("phone") String phone);
-
-    @Select("select * from user where `email` = #{email} and `status` = 1")
-    public User getUserByEmail(@Param("email") String email);
 
     @Select("select * from user where `name` = #{name} and `status` = 1")
     public User getUserByName(@Param("name") String name);

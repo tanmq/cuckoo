@@ -1,5 +1,6 @@
 package com.cuckoo.web.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cuckoo.web.mysql.ddl.User;
 
@@ -29,6 +30,19 @@ public class RespUtil {
         JSONObject resp = new JSONObject();
         resp.put("code", 200);
         resp.put("data", data);
+
+        return resp;
+    }
+
+    /**
+     * 成功返回数组数据
+     * @param array
+     * @return
+     */
+    public static JSONObject OKResponse(JSONArray array) {
+        JSONObject resp = new JSONObject();
+        resp.put("code", 200);
+        resp.put("data", array);
 
         return resp;
     }

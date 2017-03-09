@@ -11,8 +11,10 @@ import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.Filter;
 
 @SpringBootApplication
 @MapperScan("com.cuckoo.web.mysql.mapper")
@@ -36,5 +38,10 @@ public class CuckooWebApplication {
 		fastConverter.setFastJsonConfig(fastJsonConfig);
 		HttpMessageConverter<?> converter = fastConverter;
 		return new HttpMessageConverters(converter);
+	}
+
+	@Bean
+	public Filter shallowEtagHeaderFilter() {
+		return new ShallowEtagHeaderFilter();
 	}
 }

@@ -1,5 +1,6 @@
 package com.cuckoo.web.mysql.dao;
 
+import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.ddl.UserFollow;
 import com.cuckoo.web.mysql.mapper.UserFollowMapper;
 import com.cuckoo.web.utils.LongUtil;
@@ -45,6 +46,14 @@ public class UserFollowDao {
             return new ArrayList<>();
         }
         return userFollowMapper.getUserFollowers(uid);
+    }
+
+    public List<User> getFollowUsers(Long uid) {
+        if (LongUtil.NullORZero(uid)) {
+            return new ArrayList<>();
+        }
+
+        return userFollowMapper.getFollowUsers(uid);
     }
 
 

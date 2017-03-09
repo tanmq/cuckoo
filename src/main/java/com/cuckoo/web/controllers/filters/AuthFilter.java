@@ -6,6 +6,8 @@ import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.service.AccountService;
 import com.cuckoo.web.utils.StringUtil;
 import com.cuckoo.web.utils.TUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
@@ -19,8 +21,12 @@ import java.io.IOException;
 
 @WebFilter(filterName  = "authFilter",
            urlPatterns = {"/api/v1/account/signOut",
-                          "/api/v1/feed/*"})
+                          "/api/v1/feed/*",
+                          "/api/v1/friend/*"})
 public class AuthFilter implements Filter{
+
+
+    private static Logger logger = LoggerFactory.getLogger(AuthFilter.class);
 
     @Autowired
     AccountService accountService;

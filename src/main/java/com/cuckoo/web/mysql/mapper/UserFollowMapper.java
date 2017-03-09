@@ -1,5 +1,6 @@
 package com.cuckoo.web.mysql.mapper;
 
+import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.ddl.UserFollow;
 import org.apache.ibatis.annotations.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public interface UserFollowMapper {
 
 
-    @Insert("insert into `user_follow` (`uid`,`followUid`,`cts`) values (#{uid}, #{followUid}, now())")
+    @Insert("insert ignore into `user_follow` (`uid`,`followUid`,`cts`) values (#{uid}, #{followUid}, now())")
     public void follow(@Param("uid")long uid, @Param("followUid")long followUid);
 
     @Delete("delete from `user_follow` where `uid`=#{uid} and `followUid`=#{followUid}")
@@ -23,6 +24,11 @@ public interface UserFollowMapper {
 
     @Select("select * from `user_follow` where `uid`=#{uid}")
     public List<UserFollow> getFollowingUsers(@Param("uid")long uid);
+
+    @Select("select * from user where id in " +
+            "(select `uid` from `user_follow` where `followUid`=#{uid}) " +
+            "and `status` = 1")
+    public List<User> getFollowUsers(@Param("uid")long uid);
 
 
 }

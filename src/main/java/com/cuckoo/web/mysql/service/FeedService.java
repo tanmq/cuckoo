@@ -80,7 +80,11 @@ public class FeedService {
     public void newFeed(Feed feed) {
         feedDao.insertFeed(feed);
 
+        //insert into own timeline
+        feedTimelineDao.insertTimelineItem(feed.getUid(), feed.getId(), feed.getUid(), feed.getCts());
+
         //TODO 异步去做
+        //insert into followers timeline
         List<UserFollow> follows = userFollowDao.getUserFollowers(feed.getUid());
         for (UserFollow follow : follows) {
             feedTimelineDao.insertTimelineItem(follow.getUid(), feed.getId(), feed.getUid(), feed.getCts());
