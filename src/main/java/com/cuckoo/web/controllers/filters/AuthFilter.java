@@ -22,6 +22,7 @@ import java.io.IOException;
 @WebFilter(filterName  = "authFilter",
            urlPatterns = {"/api/v1/account/signOut",
                           "/api/v1/feed/*",
+                          "/api/v1/user/*",
                           "/api/v1/friend/*"})
 public class AuthFilter implements Filter{
 
