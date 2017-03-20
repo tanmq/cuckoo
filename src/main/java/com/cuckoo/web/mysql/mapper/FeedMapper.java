@@ -10,14 +10,14 @@ import java.util.List;
  */
 public interface FeedMapper {
 
-    @Insert("insert into `feed` (`uid`,`title`,`coverImg`,`desc`,`content`,`cts`,`uts`) values " +
-            "(#{f.uid}, #{f.title}, #{f.coverImg}, #{f.desc}, #{f.content}, #{f.cts} , #{f.uts})")
+    @Insert("insert into `feed` (`uid`,`title`,`coverImg`,`desc`,`content`,`cts`,`uts`, `shareCode`) values " +
+            "(#{f.uid}, #{f.title}, #{f.coverImg}, #{f.desc}, #{f.content}, #{f.cts} , #{f.uts}, #{f.shareCode})")
     @Options(useGeneratedKeys = true, keyProperty = "f.id")
     public void insertFeed(@Param("f") Feed feed);
 
 
     @Update("update `feed` set `title`=#{f.title}, `coverImg`=#{f.coverImg}, `desc`=#{f.desc}, " +
-            "`content`=#{f.content}, `uts`=now() where `id`=#{f.id}")
+            "`content`=#{f.content}, `uts`=now(), `shareCode`=#{f.shareCode} where `id`=#{f.id}")
     public void updateFeed(@Param("f")Feed feed);
 
     @Update("update `feed` set `status`=0 where `id`=#{id}")

@@ -17,6 +17,8 @@ public class Feed {
 
     private String desc;
 
+    private String shareCode;
+
     private String content;
 
     private Date cts;
@@ -90,5 +92,13 @@ public class Feed {
 
     public void setUts(Date uts) {
         this.uts = uts;
+    }
+
+    public String getShareCode() {
+        return shareCode;
+    }
+
+    public void setShareCode(String shareCode) {
+        this.shareCode = shareCode;
     }
 }

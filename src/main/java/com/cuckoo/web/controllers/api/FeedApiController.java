@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cuckoo.web.mysql.ddl.Feed;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.service.FeedService;
+import com.cuckoo.web.utils.IDUtil;
 import com.cuckoo.web.utils.ReqUtil;
 import com.cuckoo.web.utils.RespUtil;
 import com.cuckoo.web.utils.TUser;
@@ -46,6 +47,7 @@ public class FeedApiController {
         feed.setDesc(desc);
         feed.setCoverImg(coverImg);
         feed.setContent(content.toJSONString());
+        feed.setShareCode(IDUtil.newShareCode());
 
         feedService.newFeed(feed);
 
