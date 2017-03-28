@@ -6,10 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.cuckoo.web.mysql.ddl.Feed;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.service.FeedService;
-import com.cuckoo.web.utils.IDUtil;
-import com.cuckoo.web.utils.ReqUtil;
-import com.cuckoo.web.utils.RespUtil;
-import com.cuckoo.web.utils.TUser;
+import com.cuckoo.web.mysql.service.UserService;
+import com.cuckoo.web.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,13 @@ public class FeedApiController {
 
     private static Logger logger = LoggerFactory.getLogger(FeedApiController.class);
 
+    private static final String shareUrlPrefix = Config.get("share.url.prefix");
+
     @Autowired
     FeedService feedService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "publish", method = RequestMethod.POST)
     @ResponseBody
@@ -108,6 +111,34 @@ public class FeedApiController {
         return RespUtil.OKResponse(data);
     }
 
+    @RequestMapping(value = "/share/{fid}", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject share(@PathVariable Long fid) {
+        if (LongUtil.NullORZero(fid)) {
+            return RespUtil.ERRORResponse(400, "error fid");
+        }
+
+        Feed feed = feedService.getFeedDetail(fid);
+        if (feed == null) {
+            return RespUtil.ERRORResponse(400, "feed not exist.");
+        }
+
+        if (StringUtil.NullOrEmpty(feed.getShareCode())) {
+            feed.setShareCode(IDUtil.newShareCode());
+            feedService.updateFeed(feed);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(shareUrlPrefix);
+        sb.append("/").append(feed.getId());
+        sb.append("/").append(feed.getShareCode());
+
+        JSONObject data = new JSONObject();
+        data.put("share_url", sb.toString());
+
+        return RespUtil.OKResponse(data);
+    }
+
 
     /**
      * 封装列表数据返回
@@ -121,9 +152,19 @@ public class FeedApiController {
         data.put("count", feeds.size());
         JSONArray array = new JSONArray();
         for (Feed f : feeds) {
+
+            //TODO this need to remove for the performance in the future.
+            User user = userService.getUser(f.getUid());
+            if (user == null) {
+                continue;
+            }
+
             JSONObject item = new JSONObject();
             item.put("id", f.getId());
             item.put("uid", f.getUid());
+            item.put("user_name", user.getName());
+            item.put("user_avatar_url", user.getAvatarUrl());
+
             item.put("title", f.getTitle());
             item.put("coverImg", f.getCoverImg());
             item.put("desc", f.getDesc());

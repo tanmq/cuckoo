@@ -3,7 +3,8 @@
 	<head>
 		<title>cuckoo</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name='TTUNION_verify' content='1b87da8d5316c9065854bf34ffdc1cb7'>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/css/index/main.css" />
 		<noscript><link rel="stylesheet" href="/css/index/noscript.css" /></noscript>

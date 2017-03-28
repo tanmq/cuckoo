@@ -7,7 +7,6 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>Cuckoo monitor</title>
 
@@ -15,6 +14,7 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/monitor/monitor.css" rel="stylesheet">
+    <link href="/css/monitor/flipclock.css" rel="stylesheet">
 </head>
 
 <body>
@@ -26,8 +26,7 @@
         <div class="cover-container">
 
             <div class="inner cover">
-                <h1 class="cover-heading">注册人数</h1>
-                <p id="count">${count}</p>
+                <div class="clock"></div>
             </div>
         </div>
     </div>
@@ -37,16 +36,21 @@
 ================================================== -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/flipclock.js"></script>
 
 <script>
+    var clock;
+
     $(document).ready(function(){
+        clock = new FlipClock($('.clock'), 10000000, {
+            clockFace: 'Counter'
+        });
         count();
     });
 
-
     function count() {
         $.post("/monitor/userCount?code=1234567890987654321", function( data ) {
-            $( "#count" ).html( data["count"] );
+            clock.setCounter(data["count"]);
         });
         setTimeout(count, 5000)
     }
