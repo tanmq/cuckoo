@@ -1,5 +1,6 @@
 package com.cuckoo.web.mysql.service;
 
+import com.cuckoo.web.controllers.enumutation.VCardInfoType;
 import com.cuckoo.web.mysql.dao.UserDao;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.utils.LongUtil;
@@ -26,5 +27,36 @@ public class UserService {
         }
 
         return userDao.getUserById(uid);
+    }
+
+    public void updateUserInfo(VCardInfoType type, User user) {
+        if (LongUtil.NullORZero(user.getId())) {
+            logger.error("Invalid user id.");
+            return;
+        }
+
+        switch (type) {
+            case COVER:
+                userDao.updateUserCoverImg(user.getId(), user.getCoverUrl());
+                break;
+            case SIGNATURE:
+                userDao.updateUserSignature(user.getId(), user.getSignature());
+                break;
+            case AREA:
+                userDao.updateUserArea(user.getId(), user.getArea());
+                break;
+            case AVATAR:
+                userDao.updateUserAvatar(user.getId(), user.getAvatarUrl(), user.getAvatarUrlOrigin());
+                break;
+            case GENDER:
+                userDao.updateUserGender(user.getId(), user.getGender());
+                break;
+            case NAME:
+                userDao.updateUserName(user.getId(), user.getName());
+                break;
+            default:
+                logger.warn("Unknown VCardInfo type. type value is {}", type.getType());
+                break;
+        }
     }
 }

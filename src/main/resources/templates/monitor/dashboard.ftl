@@ -42,7 +42,7 @@
     var clock;
 
     $(document).ready(function(){
-        clock = new FlipClock($('.clock'), 10000000, {
+        clock = new FlipClock($('.clock'), 100000000, {
             clockFace: 'Counter'
         });
         count();

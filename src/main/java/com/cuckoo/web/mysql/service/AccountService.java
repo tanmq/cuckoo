@@ -56,8 +56,8 @@ public class AccountService {
         return null;
     }
 
-    public boolean addNewUser(@NotNull String name, @NotNull String phone,
-                              @NotNull String avatarUrl, @NotNull Integer gender, @NotNull String pass) {
+    public boolean addNewUser(@NotNull String name, @NotNull String phone, @NotNull String avatarUrl,
+                              @NotNull String avatarUrlOrigin, @NotNull Integer gender, @NotNull String pass) {
         if (userExist(phone)) {
             return false;
         }
@@ -66,6 +66,7 @@ public class AccountService {
         user.setName(name);
         user.setPhone(phone);
         user.setAvatarUrl(avatarUrl);
+        user.setAvatarUrlOrigin(avatarUrlOrigin);
         user.setGender(gender);
 
         String salt     = EncodeUtil.newSalt(phone);

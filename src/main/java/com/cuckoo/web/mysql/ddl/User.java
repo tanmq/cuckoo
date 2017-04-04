@@ -16,6 +16,8 @@ public class User {
 
     private String avatarUrl;
 
+    private String avatarUrlOrigin;
+
     private int gender;
 
     private String passwd;
@@ -29,6 +31,12 @@ public class User {
     private Date cts;
 
     private Date uts;
+
+    private String area;
+
+    private String coverUrl;
+
+    private String signature;
 
 
     public String getName() {
@@ -117,5 +125,37 @@ public class User {
 
     public void setUts(Date uts) {
         this.uts = uts;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getAvatarUrlOrigin() {
+        return avatarUrlOrigin;
+    }
+
+    public void setAvatarUrlOrigin(String avatarUrlOrigin) {
+        this.avatarUrlOrigin = avatarUrlOrigin;
     }
 }

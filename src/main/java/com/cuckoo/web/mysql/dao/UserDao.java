@@ -46,4 +46,29 @@ public class UserDao {
     public Integer countUsers() {
         return userMapper.countUsers();
     }
+
+    public void updateUserName(long id, String name) {
+        userMapper.updateUserName(id, name);
+    }
+
+    public void updateUserAvatar(long id, String avatarUrl, String avatarUrlOrigin) {
+        userMapper.updateUserAvatar(id, avatarUrl, avatarUrlOrigin);
+    }
+
+    public void updateUserGender(long id, int gender) {
+        userMapper.updateUserGender(id, gender);
+    }
+
+    public void updateUserArea(long id, String area) {
+        userMapper.updateUserArea(id, area);
+    }
+
+    public void updateUserSignature(long id, String signature) {
+        userMapper.updateUserSignature(id, signature);
+    }
+
+    public void updateUserCoverImg(long id, String coverUrl) {
+        userMapper.updateUserCoverImg(id, coverUrl);
+    }
+
 }
