@@ -57,4 +57,10 @@ public class UserFollowDao {
     }
 
 
+    public boolean hasFollow(long uid, long targetUid) {
+        return userFollowMapper.hasFollow(uid, targetUid) > 0;
+    }
+
+
+
 }

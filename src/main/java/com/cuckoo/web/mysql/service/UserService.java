@@ -4,10 +4,15 @@ import com.cuckoo.web.controllers.enumutation.VCardInfoType;
 import com.cuckoo.web.mysql.dao.UserDao;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.utils.LongUtil;
+import com.cuckoo.web.utils.StringUtil;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tanmq on 2017/3/11.
@@ -27,6 +32,16 @@ public class UserService {
         }
 
         return userDao.getUserById(uid);
+    }
+
+    public List<User> searchUsers(String keyword) {
+        if (StringUtil.NullOrEmpty(keyword)) {
+            return new ArrayList<>();
+        }
+
+        keyword = StringEscapeUtils.escapeSql(keyword);
+
+        return userDao.searchUsers(keyword);
     }
 
     public void updateUserInfo(VCardInfoType type, User user) {

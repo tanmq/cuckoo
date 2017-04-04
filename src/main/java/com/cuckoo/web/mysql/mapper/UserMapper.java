@@ -26,6 +26,9 @@ public interface UserMapper {
     @Select("select * from user where `phone` =  #{phone} and `status` = 1")
     public User getUserByPhone(@Param("phone") String phone);
 
+    @Select("select * from user where `name` like '%#{keyword}%' and `status` = 1 limit 20")
+    public List<User> searchUsers(@Param("keyword")String keyword);
+
     @Select("select * from user where `name` = #{name} and `status` = 1")
     public User getUserByName(@Param("name") String name);
 

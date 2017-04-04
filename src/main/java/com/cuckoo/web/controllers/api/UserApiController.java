@@ -1,14 +1,19 @@
 package com.cuckoo.web.controllers.api;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cuckoo.web.controllers.enumutation.VCardInfoType;
 import com.cuckoo.web.mysql.ddl.User;
+import com.cuckoo.web.mysql.service.FollowService;
 import com.cuckoo.web.mysql.service.UserService;
 import com.cuckoo.web.utils.*;
+import net.sf.json.JSONNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by tanmq on 2017/3/11.
@@ -21,6 +26,9 @@ public class UserApiController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    FollowService followService;
 
     @RequestMapping(value = "/vCard/{uid}", method = RequestMethod.GET)
     @ResponseBody
@@ -131,6 +139,37 @@ public class UserApiController {
         }
 
         return RespUtil.OKResponse();
+    }
+
+
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject searchUsers(@RequestBody JSONObject req) throws Exception {
+        ReqUtil.NotNullParams(req, "keyword");
+        String keyword = req.getString("keyword");
+
+        List<User> users = userService.searchUsers(keyword);
+        JSONArray array = new JSONArray();
+
+        User u = TUser.getUser();
+
+        for (User user : users) {
+            JSONObject item = new JSONObject();
+            item.put("uid", user.getId());
+            item.put("name", user.getName());
+            item.put("area", user.getArea());
+            item.put("avatar_url", user.getAvatarUrl());
+            if (followService.hasFollow(u.getId(), user.getId())) {
+                item.put("follow", 1);
+            } else {
+                item.put("follow", 0);
+            }
+
+            array.add(item);
+        }
+
+        return RespUtil.OKResponse(array);
     }
 
 

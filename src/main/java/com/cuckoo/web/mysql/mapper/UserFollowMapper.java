@@ -31,4 +31,8 @@ public interface UserFollowMapper {
     public List<User> getFollowUsers(@Param("uid")long uid);
 
 
+    @Select("select count(*) from user_follow where `uid`=#{uid} and `followUid`=#{targetUid}")
+    public int hasFollow(@Param("uid")long uid, @Param("targetUid")long targetUid);
+
+
 }

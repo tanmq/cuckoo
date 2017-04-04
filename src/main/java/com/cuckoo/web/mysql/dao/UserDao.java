@@ -71,4 +71,8 @@ public class UserDao {
         userMapper.updateUserCoverImg(id, coverUrl);
     }
 
+    public List<User> searchUsers(String keyword) {
+        return userMapper.searchUsers(keyword);
+    }
+
 }
