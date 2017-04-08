@@ -38,6 +38,10 @@ public class User {
 
     private String signature;
 
+    private int followCount;
+
+    private int followedCount;
+
 
     public String getName() {
         return name;
@@ -157,5 +161,21 @@ public class User {
 
     public void setAvatarUrlOrigin(String avatarUrlOrigin) {
         this.avatarUrlOrigin = avatarUrlOrigin;
+    }
+
+    public int getFollowCount() {
+        return followCount;
+    }
+
+    public void setFollowCount(int followCount) {
+        this.followCount = followCount;
+    }
+
+    public int getFollowedCount() {
+        return followedCount;
+    }
+
+    public void setFollowedCount(int followedCount) {
+        this.followedCount = followedCount;
     }
 }

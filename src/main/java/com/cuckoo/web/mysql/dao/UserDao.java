@@ -2,6 +2,7 @@ package com.cuckoo.web.mysql.dao;
 
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.mapper.UserMapper;
+import com.cuckoo.web.utils.LongUtil;
 import com.cuckoo.web.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,6 +73,7 @@ public class UserDao {
     }
 
     public List<User> searchUsers(String keyword) {
+        keyword = "%" + keyword + "%";
         return userMapper.searchUsers(keyword);
     }
 

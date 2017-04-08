@@ -66,8 +66,17 @@ public class FeedApiController {
         Integer page = req.getInteger("page");
         Integer size = req.getInteger("size");
 
-        User user = TUser.getUser();
-        List<Feed> feeds = feedService.getUserFeeds(user.getId(), page, size);
+        Long uid;
+        if (req.containsKey("uid")) {
+            uid = req.getLong("uid");
+            if (LongUtil.NullORZero(uid)) {
+                return RespUtil.ERRORResponse(405, "invalid uid");
+            }
+        } else {
+            uid = TUser.getUser().getId();
+        }
+
+        List<Feed> feeds = feedService.getUserFeeds(uid, page, size);
 
         return RespUtil.OKResponse(buildFeedList(page, feeds));
     }

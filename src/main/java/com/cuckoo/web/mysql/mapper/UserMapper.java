@@ -26,7 +26,7 @@ public interface UserMapper {
     @Select("select * from user where `phone` =  #{phone} and `status` = 1")
     public User getUserByPhone(@Param("phone") String phone);
 
-    @Select("select * from user where `name` like '%#{keyword}%' and `status` = 1 limit 20")
+    @Select("select * from user where `name` like #{keyword} and `status` = 1 limit 20")
     public List<User> searchUsers(@Param("keyword")String keyword);
 
     @Select("select * from user where `name` = #{name} and `status` = 1")
@@ -52,6 +52,19 @@ public interface UserMapper {
 
     @Update("update user set `coverUrl`=#{coverUrl}, `uts`=now() where `id`=#{id}")
     public void updateUserCoverImg(@Param("id")long id, @Param("coverUrl")String coverUrl);
+
+
+    @Update("update user set `followCount`=`followCount` + 1 where `id` = #{id} and `status`=1")
+    public void incrementFollowCount(@Param("id")Long id);
+
+    @Update("update user set `followCount`=`followCount` - 1 where `id` = #{id} and `status`=1 and `followCount` > 0")
+    public void decrementFollowCount(@Param("id")Long id);
+
+    @Update("update user set `followedCount`=`followedCount` + 1 where `id` = #{id} and `status` = 1")
+    public void incrementFollowedCount(@Param("id")Long id);
+
+    @Update("update user set `followedCount`=`followedCount` - 1 where `id` = #{id} and `status` = 1 and `followedCount` > 0")
+    public void decrementFollowedCount(@Param("id")Long id);
 
 
 }

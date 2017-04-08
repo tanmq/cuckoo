@@ -3,6 +3,7 @@ package com.cuckoo.web.mysql.dao;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.ddl.UserFollow;
 import com.cuckoo.web.mysql.mapper.UserFollowMapper;
+import com.cuckoo.web.mysql.mapper.UserMapper;
 import com.cuckoo.web.utils.LongUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,12 +20,18 @@ public class UserFollowDao {
     @Autowired
     UserFollowMapper userFollowMapper;
 
+
+    @Autowired
+    UserMapper userMapper;
+
     public void follow(Long uid, Long followUid) {
         if (LongUtil.NullORZero(uid) || LongUtil.NullORZero(followUid)) {
             return;
         }
 
         userFollowMapper.follow(uid, followUid);
+        userMapper.incrementFollowCount(uid);
+        userMapper.incrementFollowedCount(followUid);
     }
 
     public void unFollow(Long uid, Long followUid) {
@@ -32,6 +39,8 @@ public class UserFollowDao {
             return;
         }
         userFollowMapper.unFollow(uid, followUid);
+        userMapper.decrementFollowCount(uid);
+        userMapper.decrementFollowedCount(followUid);
     }
 
     public List<UserFollow> getUserFollowers(Long uid) {

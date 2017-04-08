@@ -34,6 +34,7 @@ public class UserApiController {
     @ResponseBody
     public JSONObject vCard(@PathVariable long uid) throws Exception {
 
+        User ru = TUser.getUser();
         User user = userService.getUser(uid);
         if (user == null) {
             return RespUtil.ERRORResponse(410, "user not exist.");
@@ -42,13 +43,24 @@ public class UserApiController {
         JSONObject ret = new JSONObject();
         ret.put("name", user.getName());
         ret.put("avatar_url", user.getAvatarUrl());
-        ret.put("avatar_url_origin", user.getAvatarUrlOrigin());
-        ret.put("id", user.getId());
-        ret.put("area", user.getArea());
+        ret.put("avatar_url_origin", user.getAvatarUrlOrigin() == null ? user.getAvatarUrl() : user.getAvatarUrlOrigin());
+        ret.put("uid", user.getId());
+        ret.put("area", user.getArea() == null ? "" : user.getArea());
         ret.put("gender", user.getGender());
-        ret.put("signature", user.getSignature());
-        ret.put("cover", user.getCoverUrl());
+        ret.put("signature", user.getSignature() == null ? "" : user.getSignature());
+        ret.put("cover", user.getCoverUrl() == null ? "" : user.getCoverUrl());
         ret.put("phone", user.getPhone());
+        ret.put("follow_count", user.getFollowCount());
+        ret.put("followed_count", user.getFollowedCount());
+        if (user.getId().equals(ru.getId())) {
+            ret.put("follow", 1);
+        } else {
+            if (followService.hasFollow(ru.getId(), user.getId())) {
+                ret.put("follow", 1);
+            } else {
+                ret.put("follow", 0);
+            }
+        }
 
         return RespUtil.OKResponse(ret);
     }
@@ -160,6 +172,7 @@ public class UserApiController {
             item.put("name", user.getName());
             item.put("area", user.getArea());
             item.put("avatar_url", user.getAvatarUrl());
+            item.put("signature", user.getSignature());
             if (followService.hasFollow(u.getId(), user.getId())) {
                 item.put("follow", 1);
             } else {
