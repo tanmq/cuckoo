@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/monitor")
 public class MonitorController {
 
-    private static String code = "1234567890987654321";
+    private static String CODE = "1234567890987654321";
 
     @Autowired
     UserDao userDao;
@@ -27,7 +27,7 @@ public class MonitorController {
 
     @RequestMapping(value = "dashboard", method = RequestMethod.GET)
     public String dashboard(@Param("code")String code, HttpServletResponse response, Map<String, Object> model) throws Exception{
-        if (code == null || !code.equals(code)) {
+        if (code == null || !code.equals(CODE)) {
             response.sendRedirect("/");
         }
 

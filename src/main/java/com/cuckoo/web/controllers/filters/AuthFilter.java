@@ -57,6 +57,7 @@ public class AuthFilter implements Filter{
             return;
         }
 
+        logger.info("Request path : {}", request.getPathInfo());
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

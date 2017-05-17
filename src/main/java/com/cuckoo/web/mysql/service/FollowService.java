@@ -29,13 +29,13 @@ public class FollowService {
         userFollowDao.follow(uid, followUid);
 
         //you should open this while want to see old feeds from followUid.
-        //feedService.distributeFeeds(uid, followUid);
+        feedService.distributeFeeds(uid, followUid);
     }
 
     public void unFollow(Long uid, Long followUid) {
         userFollowDao.unFollow(uid, followUid);
         //you should open this while want not to see old feeds from followUid.
-        //feedService.hideUserFeeds(uid, followUid);
+        feedService.hideUserFeeds(uid, followUid);
     }
 
 
@@ -47,8 +47,13 @@ public class FollowService {
         return userFollowDao.hasFollow(uid, targetUid);
     }
 
-    public List<User> getFollowUsers(Long uid) {
-        return userFollowDao.getFollowUsers(uid);
+    public List<User> getFollowers(Long uid, Integer page, Integer size) {
+        return userFollowDao.getFollowers(uid, page, size);
+    }
+
+
+    public List<User> getFollowees(Long uid, Integer page, Integer size) {
+        return userFollowDao.getFollowees(uid, page, size);
     }
 
 

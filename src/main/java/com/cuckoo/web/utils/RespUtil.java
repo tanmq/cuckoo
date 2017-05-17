@@ -76,6 +76,19 @@ public class RespUtil {
 
 
 
+    public static void addAttr(JSONObject json, String key, String value, String defaultV) {
+        if (json == null || StringUtil.NullOrEmpty(key)) {
+            return;
+        }
+
+        if (StringUtil.NullOrEmpty(value)) {
+            json.put(key, defaultV);
+        } else {
+            json.put(key, value);
+        }
+    }
+
+
 
 
 }

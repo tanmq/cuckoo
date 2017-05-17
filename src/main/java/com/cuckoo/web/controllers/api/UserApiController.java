@@ -6,8 +6,10 @@ import com.cuckoo.web.controllers.enumutation.VCardInfoType;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.service.FollowService;
 import com.cuckoo.web.mysql.service.UserService;
-import com.cuckoo.web.utils.*;
-import net.sf.json.JSONNull;
+import com.cuckoo.web.utils.ReqUtil;
+import com.cuckoo.web.utils.RespUtil;
+import com.cuckoo.web.utils.StringUtil;
+import com.cuckoo.web.utils.TUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,9 +172,9 @@ public class UserApiController {
             JSONObject item = new JSONObject();
             item.put("uid", user.getId());
             item.put("name", user.getName());
-            item.put("area", user.getArea());
+            item.put("area", user.getArea() == null ? "" : user.getArea());
             item.put("avatar_url", user.getAvatarUrl());
-            item.put("signature", user.getSignature());
+            item.put("signature", user.getSignature() == null ? "" : user.getSignature());
             if (followService.hasFollow(u.getId(), user.getId())) {
                 item.put("follow", 1);
             } else {

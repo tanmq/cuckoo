@@ -1,9 +1,11 @@
 package com.cuckoo.web.mysql.dao;
 
+import com.cuckoo.web.common.Constant;
 import com.cuckoo.web.mysql.ddl.User;
 import com.cuckoo.web.mysql.ddl.UserFollow;
 import com.cuckoo.web.mysql.mapper.UserFollowMapper;
 import com.cuckoo.web.mysql.mapper.UserMapper;
+import com.cuckoo.web.utils.IntegerUtil;
 import com.cuckoo.web.utils.LongUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,12 +59,42 @@ public class UserFollowDao {
         return userFollowMapper.getUserFollowers(uid);
     }
 
-    public List<User> getFollowUsers(Long uid) {
+    public List<User> getFollowers(Long uid, Integer page, Integer size) {
         if (LongUtil.NullORZero(uid)) {
             return new ArrayList<>();
         }
 
-        return userFollowMapper.getFollowUsers(uid);
+        if (IntegerUtil.NullORZero(page)) {
+            page = Constant.DEFAULT_PAGE;
+        }
+
+        if (IntegerUtil.NullORZero(size)) {
+            size = Constant.DEFAULT_PAGE_SIZE;
+        }
+
+        int offset = (page - 1) * size;
+        int count  = size;
+
+        return userFollowMapper.getFollowers(uid, offset, count);
+    }
+
+    public List<User> getFollowees(Long uid, Integer page, Integer size) {
+        if (LongUtil.NullORZero(uid)) {
+            return new ArrayList<>();
+        }
+
+        if (IntegerUtil.NullORZero(page)) {
+            page = Constant.DEFAULT_PAGE;
+        }
+
+        if (IntegerUtil.NullORZero(size)) {
+            size = Constant.DEFAULT_PAGE_SIZE;
+        }
+
+        int offset = (page - 1) * size;
+        int count  = size;
+
+        return userFollowMapper.getFollowees(uid, offset, count);
     }
 
 

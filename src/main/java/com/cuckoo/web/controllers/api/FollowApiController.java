@@ -59,22 +59,90 @@ public class FollowApiController {
 
     @RequestMapping(value = "followers", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject followers() throws Exception {
+    public JSONObject followers(@RequestBody JSONObject req) throws Exception {
+
+        ReqUtil.NotNullParams(req, "page", "size");
+
+        JSONObject data = new JSONObject();
         JSONArray array = new JSONArray();
         User user = TUser.getUser();
+        Long uid  = user.getId();
 
-        List<User> followers = followService.getFollowUsers(user.getId());
+        Integer page = req.getInteger("page");
+        Integer size = req.getInteger("size");
+
+        if (req.containsKey("uid")) {
+            uid = req.getLong("uid");
+        }
+
+        List<User> followers = followService.getFollowers(uid, page, size);
         for (User f : followers) {
             JSONObject m = new JSONObject();
             m.put("uid", f.getId());
             m.put("name", f.getName());
             m.put("gender", f.getGender());
             m.put("avatar_url", f.getAvatarUrl());
+            m.put("area", f.getArea() == null ? "" : f.getArea());
+            m.put("signature", f.getSignature() == null ? "" : f.getSignature());
+            if (followService.hasFollow(f.getId(), uid)) {
+                m.put("followed", 1);
+            } else {
+                m.put("followed", 0);
+            }
 
             array.add(m);
         }
 
-        return RespUtil.OKResponse(array);
+        data.put("page", page);
+        data.put("count", followers.size());
+        data.put("list", array);
+
+        return RespUtil.OKResponse(data);
+    }
+
+
+    @RequestMapping(value = "followees",  method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject followees(@RequestBody JSONObject req) throws Exception {
+
+        ReqUtil.NotNullParams(req, "page", "size");
+
+        JSONObject data = new JSONObject();
+        JSONArray array = new JSONArray();
+        User user = TUser.getUser();
+        Long uid  = user.getId();
+
+        Integer page = req.getInteger("page");
+        Integer size = req.getInteger("size");
+
+        if (req.containsKey("uid")) {
+            uid = req.getLong("uid");
+        }
+
+        List<User> followees = followService.getFollowees(uid, page, size);
+        for (User f : followees) {
+            JSONObject m = new JSONObject();
+            m.put("uid", f.getId());
+            m.put("name", f.getName());
+            m.put("gender", f.getGender());
+            m.put("avatar_url", f.getAvatarUrl());
+            m.put("area", f.getArea() == null ? "" : f.getArea());
+            m.put("signature", f.getSignature() == null ? "" : f.getSignature());
+            if (followService.hasFollow(uid, f.getId())) {
+                m.put("follow", 1);
+            } else {
+                m.put("follow", 0);
+            }
+
+
+            array.add(m);
+        }
+
+        data.put("page", page);
+        data.put("count", followees.size());
+        data.put("list", array);
+
+        return RespUtil.OKResponse(data);
     }
 
     @RequestMapping(value = "recommend", method = RequestMethod.POST)

@@ -26,9 +26,15 @@ public interface UserFollowMapper {
     public List<UserFollow> getFollowingUsers(@Param("uid")long uid);
 
     @Select("select * from user where id in " +
+            "(select `followUid` from `user_follow` where `uid`=#{uid}) " +
+            "and `status` = 1 order by cts desc limit #{offset}, #{count}")
+    public List<User> getFollowers(@Param("uid")long uid, @Param("offset")int offset, @Param("count")int count);
+
+
+    @Select("select * from user where id in " +
             "(select `uid` from `user_follow` where `followUid`=#{uid}) " +
-            "and `status` = 1")
-    public List<User> getFollowUsers(@Param("uid")long uid);
+            "and `status` = 1 order by cts desc limit #{offset}, #{count}")
+    public List<User> getFollowees(@Param("uid")long uid, @Param("offset")int offset, @Param("count")int count);
 
 
     @Select("select count(*) from user_follow where `uid`=#{uid} and `followUid`=#{targetUid}")
